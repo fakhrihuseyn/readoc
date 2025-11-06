@@ -1,12 +1,21 @@
 async function searchNotes() {
   const query = document.getElementById('searchInput').value.trim();
-  if (!query) return;
+  const list = document.getElementById('notesList');
+  list.innerHTML = '';
+  let notes = [];
   try {
-    const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
-    if (!res.ok) throw new Error('Search failed');
-    const notes = await res.json();
-    const list = document.getElementById('notesList');
-    list.innerHTML = '';
+    let res;
+    if (!query) {
+      // If query is empty, fetch all notes
+      res = await fetch('/api/notes');
+      if (!res.ok) throw new Error('Failed to fetch notes');
+      notes = await res.json();
+    } else {
+      // Otherwise, search
+      res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+      if (!res.ok) throw new Error('Search failed');
+      notes = await res.json();
+    }
     if (notes.length === 0) {
       const li = document.createElement('li');
       li.textContent = 'No matching notes found.';

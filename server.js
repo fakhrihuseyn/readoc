@@ -44,6 +44,32 @@ app.post('/api/notes/:id', (req, res) => {
   });
 });
 
+// Search notes
+app.get('/api/search', (req, res) => {
+  const query = req.query.q?.toLowerCase();
+  if (!query) return res.status(400).json({ error: 'Missing query' });
+
+  fs.readdir(NOTES_DIR, (err, files) => {
+    if (err) return res.status(500).json({ error: 'Failed to read notes' });
+
+    const mdFiles = files.filter(f => f.endsWith('.md'));
+    const matches = [];
+
+    let pending = mdFiles.length;
+    if (pending === 0) return res.json([]);
+
+    mdFiles.forEach(file => {
+      fs.readFile(path.join(NOTES_DIR, file), 'utf8', (err, content) => {
+        if (!err && content.toLowerCase().includes(query)) {
+          matches.push({ id: file, title: file.replace(/\.md$/, '') });
+        }
+        pending--;
+        if (pending === 0) res.json(matches);
+      });
+    });
+  });
+});
+
 // Create new note with title
 app.post('/api/notes', (req, res) => {
   const title = req.body.title || 'untitled';
