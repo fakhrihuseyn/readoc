@@ -1,0 +1,11 @@
+<svg width="260" height="220" viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="READOC logo">
+  <!-- transparent background; three rounded lines positioned higher; enlarged 'readoc' with safe gap -->
+  <g transform="translate(40,6)">
+    <!-- move lines upward so text (below) cannot overlap; lines in white -->
+    <rect x="0" y="0" rx="6" ry="6" width="180" height="14" fill="#ffffff" opacity="1" />
+    <rect x="0" y="26" rx="6" ry="6" width="180" height="14" fill="#ffffff" opacity="1" />
+    <rect x="0" y="52" rx="6" ry="6" width="125" height="14" fill="#ffffff" opacity="1" />
+    <!-- increase text size by ~15% (64 -> 74) and move text up slightly (from y=170 to y=156) -->
+    <text x="90" y="156" font-family="Segoe UI, Roboto, Arial, Helvetica, sans-serif" font-size="74" text-anchor="middle" fill="#ffffff" font-weight="800">readoc</text>
+  </g>
+</svg>
