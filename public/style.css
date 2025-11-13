@@ -274,6 +274,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial
   max-width: 100px;
   width: max-content;
 }
+#textColorPicker {
+  width: 24px;
+  height: 24px;
+  border: none;
+  cursor: pointer;
+}
 .dropdown-content button {
   display: flex;
   align-items: center;

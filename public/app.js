@@ -526,6 +526,25 @@ if (fontSelectEl) {
     document.getElementById('preview').style.fontFamily = initialFont;
   }
 }
+document.getElementById('textColorPicker').addEventListener('input', function () {
+  const ta = document.getElementById('noteEditor');
+  const color = this.value;
+  const start = ta.selectionStart;
+  const end = ta.selectionEnd;
+  if (start !== end) {
+    // Wrap selected text in a span with color style
+    const before = ta.value.slice(0, start);
+    const selected = ta.value.slice(start, end);
+    const after = ta.value.slice(end);
+    ta.value = before + `<span style="color:${color}">${selected}</span>` + after;
+    // Move cursor after inserted span
+    ta.selectionStart = ta.selectionEnd = start + `<span style="color:${color}">`.length + selected.length + `</span>`.length;
+    ta.focus();
+    // Optionally, trigger preview update
+    if (typeof renderPreview === 'function') renderPreview();
+  }
+});
+``
 
 // Preview helper using marked
 function renderPreview() {
